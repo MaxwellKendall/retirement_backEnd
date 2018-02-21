@@ -12,7 +12,11 @@ app.set('view engine', 'ejs');
  * mongoose.connect(config.getDbConnectionString());
  */
 
- app.use('/', express.static(`${__dirname}/public`));
+app.use('/', express.static(`${__dirname}/public`));
 app.use(session({ secret: '12345', resave: false, saveUninitialized: true }));
+
+app.get('/', (req, res) => {
+  res.render('index');
+})
 
 app.listen(port);
