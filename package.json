@@ -1,25 +1,25 @@
 {
-  "name": "Retirement",
-  "version": "1.0.0",
-  "description": "nodejs backend with express w/ react-redux front end",
-  "main": "app.js",
+  "name": "retirement-app",
+  "version": "0.0.1",
+  "description": "fullstack baby!",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js",
-    "client": "cd public && yarn start"
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {},
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/MaxwellKendall/retirement_backEnd/issues"
   },
-  "homepage": "tbd",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.4",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "connect-flash": "^0.1.1",
     "express-validator": "^4.3.0",
     "knex": "^0.14.2",
     "mongoose": "^5.0.1",
@@ -30,7 +30,9 @@
     "passport-goodreads": "^1.0.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
+    "request": "^2.83.0",
     "rhinozug": "^1.1.4",
-    "rhinozug-cli": "^0.1.7"
+    "rhinozug-cli": "^0.1.7",
+    "uuid": "^3.2.1"
   }
 }

@@ -1,22 +1,46 @@
+// TODO: Set up DB 
 const express = require('express');
-// const mongoose = require('mongoose'); // see comment on line 10
+const mysql = require('mysql');
 const session = require('express-session');
-const app = express();
-// const config = require('./config'); // see comment on line 10
+const knex = require('knex');
+const cors = require('cors');
 
-const port = process.env.PORT || 3000;
+// Auth
+const flash = require('connect-flash');
+const { processOAuth, processLocalAuth, processRegistration } = require('./auth');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const FacebookStrategy = require('passport-facebook');
+const LocalStrategy = require('passport-local').Strategy;
+const config = require('./config');
+
+// Defining apis
+const mainController = require('./controllers/main');
+const loginController = require('./controllers/login');
+// const bookController = require('./controllers/bookController');
+
+// Initiating app
+const app = express();
+var port = process.env.PORT || 9000;
 app.set('view engine', 'ejs');
 
-/*
- * go to config file to make function return connection string
- * mongoose.connect(config.getDbConnectionString());
- */
+// connecting to dB
+const db = knex(config.db);
 
-app.use('/', express.static(`${__dirname}/public`));
-app.use(session({ secret: '12345', resave: false, saveUninitialized: true }));
+// setting middleware
+app.use(session({ secret: 'SQRLE', resave: false, saveUninitialized: true }));
+app.use(cors());
 
-app.get('/', (req, res) => {
-  res.render('index');
-})
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+passport.use(new FacebookStrategy(config.facebookAuth, processOAuth));
+passport.use(new GoogleStrategy(config.googAuth, processOAuth));
+
+// initiating apis
+loginController(app);
+mainController(app);
+
+console.log('config.db: ', config.db);
 
 app.listen(port);
