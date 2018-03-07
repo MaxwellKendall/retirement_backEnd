@@ -1,4 +1,3 @@
-// TODO: Set up DB 
 const express = require('express');
 const mysql = require('mysql');
 const session = require('express-session');
@@ -17,7 +16,6 @@ const config = require('./config');
 // Defining apis
 const mainController = require('./controllers/main');
 const loginController = require('./controllers/login');
-// const bookController = require('./controllers/bookController');
 
 // Initiating app
 const app = express();
@@ -29,7 +27,7 @@ const db = knex(config.db);
 
 // setting middleware
 app.use(session({ secret: 'SQRLE', resave: false, saveUninitialized: true }));
-app.use(cors());
+// app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -40,7 +38,5 @@ passport.use(new GoogleStrategy(config.googAuth, processOAuth));
 // initiating apis
 loginController(app);
 mainController(app);
-
-console.log('config.db: ', config.db);
 
 app.listen(port);
