@@ -5,16 +5,13 @@ const knex = require('knex');
 module.exports = {
     up: () => {
         let connection = knex(config);
-        return connection.schema.hasTable('users')
+        return connection.schema.hasTable('comments')
             .then((exists) => {
                 if (!exists) {
-                    return connection.schema.createTable('users', (table) => {
+                    return connection.schema.createTable('comments', (table) => {
                         table.increments('id');
                         table.string('author_id');
-                        table.string('name');
-                        table.string('photoUrl');
-                        table.string('google');
-                        table.string('facebook');
+                        table.string('message');
                     });
                 }
             }).catch((err) => {
@@ -25,7 +22,7 @@ module.exports = {
     },
     down: () => {
         let connection = knex(config);
-        return connection.schema.dropTable('users')
+        return connection.schema.dropTable('comments')
             .catch((err) => {
                 console.error(err);
             })

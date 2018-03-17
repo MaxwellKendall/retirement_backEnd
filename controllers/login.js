@@ -5,6 +5,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook');
 const jsonParser = bodyParser.json();
 const knex = require('knex');
+const uuidv1 = require('uuid/v1');
 
 const config = require('../config');
 const db = require('knex')(config.db);
@@ -12,10 +13,10 @@ const db = require('knex')(config.db);
 const createNewUser = profile => {
   if (profile.provider === 'google') {
     return db('users')
-      .insert({ name: `${profile.name}`, google: `${profile.id}`, photoUrl: `${profile.picture}` });
+      .insert({ author_id: `${uuidv1()}`, name: `${profile.name}`, google: `${profile.id}`, photoUrl: `${profile.picture}` });
   } else if (profile.provider === 'facebook') {
     return db('users')
-      .insert({ name: `${profile.name}`, facebook: `${profile.id}`, photoUrl: `${profile.picture.data.url}` });
+      .insert({ author_id: `${uuidv1()}`, name: `${profile.name}`, facebook: `${profile.id}`, photoUrl: `${profile.picture.data.url}` });
   }
 };
 
@@ -32,22 +33,27 @@ const processLogin = (profile) => {
         if (res.length === 0) {
           createNewUser(profile)
             .then(resp => {
-              console.log('new user : ', { id: resp[0]})
-              resolve(resp);
+              // console.log('new user : ', { id: resp[0]});
+              const userId = resp[0];
+              resolve(userId);
             })
             .catch((err) => {
               console.log('error creating new user: ', err);
               reject(err);
             });
         } else {
-          console.log('existing user: ', res[0]);
-          resolve(res[0]);
+          console.log('existing user: ', res[0].id);
+          resolve(res[0].id);
         }
       })
       .catch((err) => {
         console.log('error finding by Provider ID: ', err);
       });
   })
+}
+
+const getProfile = (userId) => {
+  return db.select().from('users').where('id', userId);
 }
 
 module.exports = (app) => {
@@ -58,7 +64,9 @@ module.exports = (app) => {
   app.post('/login', jsonParser, (req, res) => {
     const { name, email, picture, id, provider } = req.body;
     processLogin({ name, email, picture, id, provider })
-      .then(data => res.send(data))
+      .then((userId) => {
+          getProfile(userId).then(profile => res.send(profile))
+      })
       .catch(err => console.log('error from processlogin: ', err));
   });
 }

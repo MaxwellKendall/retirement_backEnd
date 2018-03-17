@@ -13,6 +13,7 @@ const config = require('./config');
 // Defining apis
 const mainController = require('./controllers/main');
 const loginController = require('./controllers/login');
+const commentsController = require('./controllers/comments');
 
 // Initiating app
 const app = express();
@@ -30,5 +31,6 @@ app.disable('x-powered-by');
 // initiating apis
 loginController(app);
 mainController(app);
+commentsController(app);
 
 app.listen(port);
