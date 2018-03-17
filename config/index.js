@@ -18,11 +18,11 @@ module.exports = {
   googAuth: {
     clientID: `${secrets.googAuth.clientID}`,
     clientSecret: `${secrets.googAuth.clientSecret}`,
-    callbackURL: 'http://localhost:9000/auth/google/callback',
+    callbackURL: 'http://localhost:3000/',
   },
   facebookAuth: {
     clientID: `${secrets.facebookAuth.clientID}`,
     clientSecret: `${secrets.facebookAuth.clientSecret}`,
-    callbackURL: 'http://localhost:9000/auth/facebook/callback',
+    callbackURL: 'http://localhost:9000/',
   }
 };

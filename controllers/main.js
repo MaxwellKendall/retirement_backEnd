@@ -9,6 +9,9 @@ module.exports = (app) => {
   app.use(bodyParser.urlencoded({ extended: true })); // takes the data from the url and extends it...?
 
   app.get('/', (req, res) => {
-    res.render('index');
+    res.send('yo');
   });
+  // app.get('/', (req, res) => {
+  //   res.render('index');
+  // });
 }
