@@ -10,7 +10,6 @@ module.exports = {
                 if (!exists) {
                     return connection.schema.createTable('users', (table) => {
                         table.increments('id');
-                        table.string('author_id');
                         table.string('name');
                         table.string('photoUrl');
                         table.string('google');

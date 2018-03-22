@@ -10,7 +10,7 @@ module.exports = {
                 if (!exists) {
                     return connection.schema.createTable('comments', (table) => {
                         table.increments('id');
-                        table.string('author_id');
+                        table.string('user_id');
                         table.string('message');
                     });
                 }

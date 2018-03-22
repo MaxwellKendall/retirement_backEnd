@@ -7,16 +7,16 @@ const uuidv1 = require('uuid/v1');
 const config = require('../config');
 const db = require('knex')(config.db);
 
-const postComment = (auth, msg) => {
+const postComment = (userid, msg) => {
   return db('comments')
-    .insert({ author_id: `${auth}`, message: `${msg}` })
+    .insert({ user_id: `${userid}`, message: `${msg}` })
 }
 
-const getComments = (index) => {
+const getCommentsByLimit = (index) => {
  return db.select('users.name', 'users.photoUrl', 'comments.message')
     .from('users', 'comments')
     .join('comments', function(){
-      this.on('users.author_id', '=', 'comments.author_id')})
+      this.on('users.id', '=', 'comments.user_id')})
     .limit(index);
 }
 
@@ -26,8 +26,8 @@ module.exports = (app) => {
 
   // Add Comment
   app.post('/api/comments', jsonParser, (req, res) => {
-    const { author_id, message } = req.body;
-    postComment(author_id, message)
+    const { userid, message } = req.body;
+    postComment(userid, message)
       .then(commentId => {
         console.log('postComment response:', commentId);
         res.send('success', commentId);
@@ -38,7 +38,7 @@ module.exports = (app) => {
   app.get('/api/comments', (req, res) => {
     // add code
     const { index } = req.query;
-    getComments(index)
+    getCommentsByLimit(index)
       .then(comments => {
         console.log(comments);
         res.send(comments);
