@@ -13,10 +13,10 @@ const db = require('knex')(config.db);
 const createNewUser = profile => {
   if (profile.provider === 'google') {
     return db('users')
-      .insert({ author_id: `${uuidv1()}`, name: `${profile.name}`, google: `${profile.id}`, photoUrl: `${profile.picture}` });
+      .insert({ name: `${profile.name}`, google: `${profile.id}`, photoUrl: `${profile.picture}` });
   } else if (profile.provider === 'facebook') {
     return db('users')
-      .insert({ author_id: `${uuidv1()}`, name: `${profile.name}`, facebook: `${profile.id}`, photoUrl: `${profile.picture.data.url}` });
+      .insert({ name: `${profile.name}`, facebook: `${profile.id}`, photoUrl: `${profile.picture.data.url}` });
   }
 };
 

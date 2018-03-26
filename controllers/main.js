@@ -7,11 +7,4 @@ var jsonParser = bodyParser.json();
 module.exports = (app) => {
   app.use(bodyParser.json()); // assumes the requests are coming in JSON
   app.use(bodyParser.urlencoded({ extended: true })); // takes the data from the url and extends it...?
-
-  app.get('/', (req, res) => {
-    res.send('yo');
-  });
-  // app.get('/', (req, res) => {
-  //   res.render('index');
-  // });
 }
