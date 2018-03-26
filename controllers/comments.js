@@ -24,19 +24,7 @@ module.exports = (app) => {
   app.use(bodyParser.json()); // assumes the requests are coming in JSON
   app.use(bodyParser.urlencoded({ extended: true })); // takes the data from the url and extends it...?
 
-  // Add Comment
-  // app.post('/api/comments', jsonParser, (req, res) => {
-  //   const { userid, message } = req.body;
-  //   postComment(userid, message)
-  //     .then(commentId => {
-  //       console.log('postComment response:', commentId);
-  //       res.send('success', commentId);
-  //     })
-  //     .catch(err => console.log('postComment err: ', err));
-  // })
-
-  app.post('/api/comments', (req, res) => {
-    console.log('req.body: ', req.body);
+  app.post('/api/comments', jsonParser, (req, res) => {
     const { userid, memory } = req.body;
     postComment(userid, memory)
       .then(commentId => {
@@ -48,6 +36,7 @@ module.exports = (app) => {
 
   app.get('/api/comments', (req, res) => {
     // add code
+    console.log('req.session: ', req.session);
     const { index } = req.query;
     getCommentsByLimit(index)
       .then(comments => {

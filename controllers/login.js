@@ -62,10 +62,15 @@ module.exports = (app) => {
 
   // Login / Logout
   app.post('/login', jsonParser, (req, res) => {
+    console.log('***SESSSION: ', req.session);
     const { name, email, picture, id, provider } = req.body;
     processLogin({ name, email, picture, id, provider })
       .then((userId) => {
-          getProfile(userId).then(profile => res.send(profile))
+        getProfile(userId).then(profile => {
+          console.log('profile: ', profile);
+          req.session.user = profile[0].id;
+          res.send({ name: profile[0].name, photoUrl: profile[0].photoUrl });
+        });
       })
       .catch(err => console.log('error from processlogin: ', err));
   });
