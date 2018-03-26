@@ -11,14 +11,14 @@ module.exports = {
             .then((exists) => {
                 if (exists) {
                     return Promise.all([
-                        connection('comments').insert({id: 1, author_id: '7a0b5b40-29ee-11e8-a3e2-f38683f15714', message: 'comment1 from user 7a'}),
-                        connection('comments').insert({id: 2, author_id: '7a0b5b40-29ee-11e8-a3e2-f38683f15714', message: 'comment2 from user 7a'}),
-                        connection('comments').insert({id: 3, author_id: '7a0b5b40-29ee-11e8-a3e2-f38683f15714', message: 'comment3 from user 7a'}),
-                        connection('comments').insert({ id: 4, author_id: '7a0b5b40-29ee-11e8-a3e2-f38683f15714', message: 'comment4 from user 7a' }),
-                        connection('comments').insert({ id: 5, author_id: '7a0b5b40-29ee-11e8-a3e2-f38683f15714', message: 'comment5 from user 7a' }),
-                        connection('comments').insert({ id: 6, author_id: '7b1d4070-29ee-11e8-a3e2-f38683f15714', message: 'comment1 from user 7b' }),
-                        connection('comments').insert({ id: 7, author_id: '7b1d4070-29ee-11e8-a3e2-f38683f15714', message: 'comment2 from user 7b' }),
-                        connection('comments').insert({ id: 8, author_id: '7b1d4070-29ee-11e8-a3e2-f38683f15714', message: 'comment3 from user 7b' }),
+                        connection('comments').insert({id: 1, user_id: 1, message: 'comment1 from user 1'}),
+                        connection('comments').insert({id: 2, user_id: 1, message: 'comment2 from user 1'}),
+                        connection('comments').insert({id: 3, user_id: 1, message: 'comment3 from user 1'}),
+                        connection('comments').insert({ id: 4, user_id: 1, message: 'comment4 from user 1' }),
+                        connection('comments').insert({ id: 5, user_id: 1, message: 'comment5 from user 1' }),
+                        connection('comments').insert({ id: 6, user_id: 2, message: 'comment1 from user 2' }),
+                        connection('comments').insert({ id: 7, user_id: 2, message: 'comment2 from user 2' }),
+                        connection('comments').insert({ id: 8, user_id: 2, message: 'comment3 from user 2' }),
                     ])
                     .then(() => {
                         connection.destroy();

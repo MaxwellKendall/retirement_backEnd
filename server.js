@@ -4,7 +4,7 @@
 
 const express = require('express');
 const mysql = require('mysql');
-const session = require('express-session');
+const session = require('cookie-session');
 const helmet = require('helmet');
 const knex = require('knex');
 
