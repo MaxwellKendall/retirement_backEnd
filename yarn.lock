@@ -1746,7 +1746,7 @@ knex@0.13.0:
     uuid "^3.0.0"
     v8flags "^2.0.2"
 
-knex@^0.14.2:
+knex@0.14.4, knex@^0.14.2:
   version "0.14.4"
   resolved "https://registry.yarnpkg.com/knex/-/knex-0.14.4.tgz#d974b7e0355244260c703731c8d90f662bfe798a"
   dependencies:
@@ -2711,12 +2711,24 @@ rhinozug-cli@^0.1.7:
     prompt "^1.0.0"
     rhinozug "^1.1.1"
 
-rhinozug@^1.1.1, rhinozug@^1.1.4:
+rhinozug@^1.1.1:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/rhinozug/-/rhinozug-1.1.4.tgz#c9829a0822375a0bd5e64340ba1da2ce17640d15"
   dependencies:
     colors "^1.1.2"
     knex "0.13.0"
+    moment "^2.13.0"
+    mysql "^2.11.1"
+    postgresql "0.0.1"
+    redefine "^0.2.1"
+    umzug "^1.11.0"
+
+rhinozug@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/rhinozug/-/rhinozug-1.1.6.tgz#d27497839540171d4a86c339cb7c92e08324daf2"
+  dependencies:
+    colors "^1.1.2"
+    knex "0.14.4"
     moment "^2.13.0"
     mysql "^2.11.1"
     postgresql "0.0.1"

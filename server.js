@@ -14,6 +14,7 @@ const config = require('./config');
 const mainController = require('./controllers/main');
 const loginController = require('./controllers/login');
 const commentsController = require('./controllers/comments');
+const quizController = require('./controllers/quiz');
 
 // Initiating app
 const app = express();
@@ -46,6 +47,7 @@ app.use(session({
 loginController(app);
 mainController(app);
 commentsController(app);
+quizController(app);
 app.get('/*', (req, res) => {
   res.render('index');
 })

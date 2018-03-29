@@ -34,7 +34,7 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "request": "^2.83.0",
-    "rhinozug": "^1.1.4",
+    "rhinozug": "^1.1.6",
     "rhinozug-cli": "^0.1.7",
     "uuid": "^3.2.1"
   }
