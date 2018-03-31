@@ -19,6 +19,7 @@ const quizController = require('./controllers/quiz');
 
 // Initiating app
 const app = express();
+app.use(cors());
 var port = process.env.PORT || 9001;
 app.set('view engine', 'ejs');
 
@@ -29,7 +30,6 @@ const db = knex(config.db);
 var expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.use(helmet());
 app.disable('x-powered-by');
-app.use(cors());
 app.use(session({
     resave: false,
     saveUninitialized: true,
