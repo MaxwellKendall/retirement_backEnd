@@ -69,7 +69,7 @@ module.exports = (app) => {
         getProfile(userId).then(profile => {
           console.log('profile: ', profile);
           req.session.user = profile[0].id;
-          res.send({ name: profile[0].name, photoUrl: profile[0].photoUrl });
+          res.send({ name: profile[0].name, photoUrl: profile[0].photoUrl, id: profile[0].id, });
         });
       })
       .catch(err => console.log('error from processlogin: ', err));

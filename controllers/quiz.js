@@ -13,17 +13,16 @@ const getQuestionsByQuiz = quiz => (
 
 const getAnswersById = (ids) => (
   db.select('answer', 'answer_key', 'question_id')
-    .from('answers').whereIn('question_id', ids)
+    .from('answers')
+    .whereIn('question_id', ids)
 )
+
+const updateUserScore = (result, id, name) => (
+  db('users').insert({name, result}).where(id, id)
+);
 
 module.exports = (app) => {
   app.get('/api/quiz', jsonParser, (req, res) => {
-    // Front end needs this
-    // const response = [{
-    //   question_id: 1,
-    //   question: 'Why?',
-    //   answers: [{ answer: 'blah', answer_key: 0 }],
-    // }];
     let ids, answers, questions;
     getQuestionsByQuiz('first').then(questions => {
       questions = questions;
@@ -32,20 +31,24 @@ module.exports = (app) => {
       });
       getAnswersById(ids).then((answers) => {
         answers = answers;
-        console.log('questions: ', questions);
-        console.log('answers: ', answers);
-        console.log('ids: ', ids);
         const responseObject = questions.map(question => {
-          // take each question object & add new property, that is an array of objects: { question: 'why?', answer_key: 1/0}
           return {
             question_id: question.id,
             question: question.question,
             answers: [...answers.filter(answer => answer.question_id === question.id)],
           }
         });
-        console.log('responseObject: ', responseObject);
         res.send(responseObject);
       });
     })
   })
+
+  app.post('/api/quiz/results', jsonParser, (req, res) => {
+    console.log('quiz results', req.body);
+    const { result, id, name } = req.body;
+    updateUserScore(result, name)
+      .then(resp => res.send(resp))
+      .catch(err => res.send(err));
+  });
+
 }
