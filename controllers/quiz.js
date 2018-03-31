@@ -17,10 +17,6 @@ const getAnswersById = (ids) => (
     .whereIn('question_id', ids)
 )
 
-const updateUserScore = (result, id, name) => (
-  db('users').insert({name, result}).where(id, id)
-);
-
 module.exports = (app) => {
   app.get('/api/quiz', jsonParser, (req, res) => {
     let ids, answers, questions;
@@ -46,7 +42,7 @@ module.exports = (app) => {
   app.post('/api/quiz/results', jsonParser, (req, res) => {
     console.log('quiz results', req.body);
     const { result, id, name } = req.body;
-    updateUserScore(result, name)
+    updateUserScore(result, id, name)
       .then(resp => res.send(resp))
       .catch(err => res.send(err));
   });
