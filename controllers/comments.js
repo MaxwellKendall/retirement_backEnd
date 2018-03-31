@@ -35,9 +35,8 @@ module.exports = (app) => {
   })
 
   app.get('/api/comments', (req, res) => {
-    // add code
-    console.log('req.session: ', req.session);
     const { index } = req.query;
+    console.log('index: ', index)
     getCommentsByLimit(index)
       .then(comments => {
         console.log(comments);

@@ -7,6 +7,7 @@ const mysql = require('mysql');
 const session = require('cookie-session');
 const helmet = require('helmet');
 const knex = require('knex');
+const cors = require('cors');
 const uuidv1 = require('uuid/v1')
 const config = require('./config');
 
@@ -28,6 +29,7 @@ const db = knex(config.db);
 var expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.use(helmet());
 app.disable('x-powered-by');
+app.use(cors());
 app.use(session({
     resave: false,
     saveUninitialized: true,
