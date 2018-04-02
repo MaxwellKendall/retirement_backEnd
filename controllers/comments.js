@@ -39,7 +39,7 @@ module.exports = (app) => {
     getCommentsByLimit(index)
       .then(comments => {
         console.log(comments);
-        res.send(comments);
+        res.send(comments.reverse());
       })
   });
 

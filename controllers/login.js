@@ -35,6 +35,7 @@ const processLogin = (profile) => {
             .then(resp => {
               // console.log('new user : ', { id: resp[0]});
               const userId = resp[0];
+              console.log('new user response: ', resp[0]);
               resolve(userId);
             })
             .catch((err) => {
@@ -62,7 +63,6 @@ module.exports = (app) => {
 
   // Login / Logout
   app.post('/login', jsonParser, (req, res) => {
-    console.log('***SESSSION: ', req.session);
     const { name, email, picture, id, provider } = req.body;
     processLogin({ name, email, picture, id, provider })
       .then((userId) => {
